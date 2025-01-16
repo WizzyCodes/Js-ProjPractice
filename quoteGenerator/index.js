@@ -21,5 +21,16 @@ const usedIndexes = new Set();
 const quoteElement = document.getElementById("quote");
 const generateQuote = () => {
   //   quoteElement.innerHTML = `${quotes}`;
-  const randomIndex = Math.floor(Math.random() * quotes.length);
+  if (usedIndexes.size >= quotes.length) {
+    usedIndexes.clear();
+  }
+  while (true) {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    if (usedIndexes.has(randomIndex)) continue;
+
+    const quote = quotes[randomIndex];
+    quoteElement.innerHTML = quote;
+    usedIndexes.add(randomIndex);
+    break;
+  }
 };
